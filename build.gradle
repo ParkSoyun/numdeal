@@ -30,6 +30,15 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+// Spring Profile 경로
+sourceSets {
+    main {
+        resources {
+            srcDirs 'src/main/resources/profiles'
+        }
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
