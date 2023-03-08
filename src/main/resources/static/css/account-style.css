@@ -1,0 +1,118 @@
+/*.background-body {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+.wrap {
+    /*height: 100%;*/
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.logo {
+    height: 45px;
+    margin-bottom: 40px;
+}
+
+.type-group {
+    margin-bottom: 11px;
+}
+
+.type-button {
+    display: flex;
+    width: 168px;
+    height: 40px;
+    border-radius: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.validation-success {
+    color: green;
+}
+
+.validation-fail {
+    color: red;
+}
+
+.result-success {
+    color: green;
+}
+
+.result-fail {
+    color: red;
+}
+
+.user-id-box {
+    width: 334px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: space-between;
+    margin: auto auto 11px;
+}
+
+.id-input {
+    width: 228px;
+    text-align: left;
+    margin-bottom: 0!important;
+    margin-right: 3px;
+}
+
+.form-label {
+    width: 100%;
+    margin-bottom: 0;
+    margin-left: 2px;
+    text-align: left;
+}
+
+.input-button-box {
+    display: flex;
+}
+
+.form-control {
+    height: 35px;
+    border-radius: 0;
+}
+
+.form-text {
+    width: 100%;
+    margin-bottom: 0;
+    margin-left: 2px;
+    alignment: left;
+}
+
+.check-duplication-button {
+    flex: 1;
+    display: inline-flex;
+    width: 100px;
+    height: 35px;
+    margin-left: 3px;
+    border-radius: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-box {
+    width: 334px;
+    text-align: left;
+    margin: auto auto 11px!important;
+}
+
+.gender-button {
+    display: flex;
+    width: 168px;
+    height: 35px;
+    border-radius: 0;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.sign-up-button{
+    width: 334px;
+    height: 35px;
+    margin-top: 10px;
+}

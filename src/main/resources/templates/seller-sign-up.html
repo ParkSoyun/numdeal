@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+
+        <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+        <link th:href="@{/css/account-style.css}" rel="stylesheet" type="text/css">
+        <script th:src="@{/js/sign-up.js}" type="text/javascript"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Prompt:wght@900&display=swap" rel="stylesheet">
+
+        <title>NUMDEAL - Sign Up</title>
+    </head>
+
+    <body class="body">
+        <div class="background-body">
+            <div class="wrap">
+                <img class="logo" th:src="@{/images/logo_black.png}" alt="NUMDEAL LOGO">
+
+                <div class="btn-group type-group" role="group">
+                    <input type="radio" class="btn-check" name="btnradio" id="user" autocomplete="off" th:onclick="|location.href='@{/signup/user}'|" required>
+                    <label class="btn btn-outline-dark type-button" for="user">일반회원</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="seller" autocomplete="off" th:onclick="|location.href='@{/signup/seller}'|" checked>
+                    <label class="btn btn-outline-dark type-button" for="seller">판매자</label>
+                </div>
+
+                <form th:action="@{/signup/seller}" onsubmit="return checkDuplicationResult()" method="POST" th:object="${signUpRequestDto}">
+
+                    <div class="mb-3 input-box" id="needs-validation">
+                        <label class="form-label" for="id-box">아이디</label>
+                        <div class="input-button-box" id="id-box">
+                            <input type="email" class="form-control id-input" id="id" name="id" th:field="*{email}" placeholder="" aria-describedby="idHelp">
+
+                            <button class="btn btn-dark check-duplication-button" type="button" onclick="checkExistSellerId($('#id').val())">중복확인</button>
+                        </div>
+                        <small id="idHelp" class="form-text text-muted">이메일 형식으로 입력해주세요.</small>
+
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="result-fail">Incorrect data</p>
+
+                        <p class="result-success" id="check-duplication-success" hidden>사용 가능한 아이디입니다.</p>
+                        <p class="result-fail" id="check-duplication-fail" hidden>이미 존재하는 아이디입니다.</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="password">비밀번호</label>
+                        <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="" aria-describedby="passwordHelp">
+                        <small id="passwordHelp" class="form-text text-muted">영문 대소문자, 숫자, 특수문자(!@#$%^&*)를 모두 포함해주세요.</small>
+
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="passwordCheck">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" th:field="*{passwordCheck}" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="name">브랜드명</label>
+                        <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="phoneNumber">대표번호</label>
+                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" oninput="autoHyper(this)" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark sign-up-button">회원가입</button>
+
+                </form>
+            </div>
+
+        </div>
+
+        <script th:inline="javascript">
+            $(document).ready(function() {
+                let resultObject = [[${result}]];
+
+                if(resultObject != null) {
+                    alert(resultObject.message);
+
+                    if (resultObject.status = 200) {
+                        location.href = "/signin/seller";
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
