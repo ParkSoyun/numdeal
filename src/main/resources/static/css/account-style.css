@@ -116,3 +116,8 @@
     height: 35px;
     margin-top: 10px;
 }
+
+hr {
+    width: 334px;
+    margin: 30px auto 20px;
+}
