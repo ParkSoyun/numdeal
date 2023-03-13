@@ -1,0 +1,43 @@
+.title {
+    text-align: center;
+    margin: 30px auto 20px;
+}
+
+.title-text {
+    font-weight: bold;
+}
+
+.form-body {
+    text-align: center;
+    margin: 30px auto;
+}
+
+.input-box {
+    width: 334px;
+    text-align: left;
+    margin: auto auto 11px!important;
+}
+
+.form-label {
+    width: 100%;
+    margin-bottom: 0;
+    margin-left: 2px;
+    text-align: left;
+}
+
+.form-control {
+    height: 35px;
+    border-radius: 0;
+}
+
+.result-fail {
+    color: red;
+}
+
+.add-button {
+    width: 334px;
+    height: 35px;
+    margin-top: 10px;
+
+
+}
