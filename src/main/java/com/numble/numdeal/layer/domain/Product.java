@@ -1,6 +1,7 @@
 package com.numble.numdeal.layer.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class Product {
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 100, nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -33,14 +35,14 @@ public class Product {
     @Column(nullable = false)
     private int stock;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 50, nullable = false)
     private String imageFileName;
 
     @Column(nullable = false)
-    private LocalDateTime openTime;
+    private LocalDateTime openDate;
 
     @Column(nullable = false)
-    private LocalDateTime closeTime;
+    private LocalDateTime closeDate;
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
