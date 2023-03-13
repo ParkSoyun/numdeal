@@ -1,0 +1,74 @@
+.nav-div {
+    height: 90px;
+}
+
+.main-navbar-before {
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+.logo-before {
+    height: 30px;
+    margin: auto;
+}
+
+.sub-navbar-before {
+    width: 100%;
+    background-color: #f0f0f0;
+    float: right;
+}
+
+.navbar-nav {
+    flex-direction: row;
+    float: right;
+    margin-right: 10px;
+}
+
+.nav-item {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.nav-link {
+    height: 30px;
+    font-size: 13px;
+    color: #212121;
+}
+
+.main-navbar-after {
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo-after {
+    height: 30px;
+}
+
+.user-button {
+    background-color: black;
+}
+
+.user-icon {
+    height: 25px;
+}
+
+.sub-navbar-after {
+    width: 100%;
+    height: 30px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+}
+
+.welcome-text {
+    margin: auto;
+    font-size: 15px;
+}
