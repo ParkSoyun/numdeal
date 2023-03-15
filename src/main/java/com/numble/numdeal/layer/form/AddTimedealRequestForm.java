@@ -50,8 +50,8 @@ public class AddTimedealRequestForm {
                 .salePrice(salePrice)
                 .stock(stock)
                 .imageFileName(imageFileName)
-                .openDate(LocalDateTime.parse(openDateTime))
-                .closeDate(LocalDateTime.parse(closeDateTime))
+                .openTime(LocalDateTime.parse(openDateTime))
+                .closeTime(LocalDateTime.parse(closeDateTime))
                 .status(status)
                 .build();
     }
