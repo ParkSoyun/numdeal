@@ -1,5 +1,6 @@
 package com.numble.numdeal.layer.service;
 
+import com.numble.numdeal.layer.Constants;
 import com.numble.numdeal.layer.domain.Product;
 import com.numble.numdeal.layer.domain.ProductStatusEnum;
 import com.numble.numdeal.layer.domain.Seller;
@@ -89,7 +90,11 @@ public class ProductService {
 
     // seller 가져오기
     private Seller getSeller(SignInResponseDto memberInfo) {
-        return sellerRepository.findByEmail(memberInfo.getId())
+        if (!memberInfo.getAuthority().equals(Constants.AUTHORITY_SELLER)) {
+            throw new IllegalArgumentException("잘못된 접근입니다.");
+        }
+
+        return sellerRepository.findById(memberInfo.getId())
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
     }
 

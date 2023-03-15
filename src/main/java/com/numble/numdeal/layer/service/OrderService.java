@@ -1,5 +1,6 @@
 package com.numble.numdeal.layer.service;
 
+import com.numble.numdeal.layer.Constants;
 import com.numble.numdeal.layer.domain.Order;
 import com.numble.numdeal.layer.domain.Product;
 import com.numble.numdeal.layer.domain.User;
@@ -50,8 +51,12 @@ public class OrderService {
     }
 
     private User getUser(SignInResponseDto memberInfo) {
-        return userRepository.findByEmail(memberInfo.getId())
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 요청입니다."));
+        if (!memberInfo.getAuthority().equals(Constants.AUTHORITY_USER)) {
+            throw new IllegalArgumentException("잘못된 접근입니다.");
+        }
+
+        return userRepository.findById(memberInfo.getId())
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
     }
 
     private Product getProduct(Long productId) {

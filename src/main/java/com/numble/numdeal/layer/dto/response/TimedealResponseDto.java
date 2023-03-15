@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TimedealResponseDto {
     private Long productId;
+    private Long sellerId;
     private String brandName;
     private String name;
     private int regularPrice;
@@ -24,8 +25,9 @@ public class TimedealResponseDto {
     private LocalDateTime closeTime;
     private ProductStatusEnum status;
 
-    public TimedealResponseDto(Long productId, String brandName, String name, int regularPrice, int salePrice, int stock, String imageFileName, LocalDateTime openTime, LocalDateTime closeTime, ProductStatusEnum status) throws IOException {
+    public TimedealResponseDto(Long productId, Long sellerId, String brandName, String name, int regularPrice, int salePrice, int stock, String imageFileName, LocalDateTime openTime, LocalDateTime closeTime, ProductStatusEnum status) throws IOException {
         this.productId = productId;
+        this.sellerId = sellerId;
         this.brandName = brandName;
         this.name = name;
         this.regularPrice = regularPrice;
@@ -40,6 +42,7 @@ public class TimedealResponseDto {
 
     public TimedealResponseDto(Product product) throws IOException {
         this.productId = product.getProductId();
+        this.sellerId = product.getSeller().getSellerId();
         this.brandName = product.getSeller().getName();
         this.name = product.getName();
         this.regularPrice = product.getRegularPrice();
