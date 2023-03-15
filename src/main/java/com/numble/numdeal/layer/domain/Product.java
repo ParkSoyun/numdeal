@@ -47,4 +47,8 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private ProductStatusEnum status;
+
+    public void reduceStock() {
+        this.stock--;
+    }
 }
