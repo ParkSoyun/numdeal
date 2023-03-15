@@ -1,5 +1,6 @@
 package com.numble.numdeal.layer.service;
 
+import com.numble.numdeal.layer.domain.Product;
 import com.numble.numdeal.layer.domain.ProductStatusEnum;
 import com.numble.numdeal.layer.domain.Seller;
 import com.numble.numdeal.layer.dto.response.ResultResponseDto;
@@ -137,5 +138,16 @@ public class ProductService {
     // 빈 Page<TimedealResponseDto> 리턴
     public Page<TimedealResponseDto> getEmptyPage() {
         return new PageImpl<>(new ArrayList<>(), PageRequest.of(0, PAGEABLE_SIZE), 0);
+    }
+
+    // 타임딜 상세 정보 가져오기
+    public TimedealResponseDto getTimedealDetail(Long productId) throws IOException {
+        return new TimedealResponseDto(getProduct(productId));
+    }
+
+    // Product 가져오기
+    private Product getProduct(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 요청입니다."));
     }
 }

@@ -1,5 +1,6 @@
 package com.numble.numdeal.layer.dto.response;
 
+import com.numble.numdeal.layer.domain.Product;
 import com.numble.numdeal.layer.domain.ProductStatusEnum;
 import com.numble.numdeal.config.ImageFileUtil;
 import lombok.Getter;
@@ -35,5 +36,19 @@ public class TimedealResponseDto {
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.status = status;
+    }
+
+    public TimedealResponseDto(Product product) throws IOException {
+        this.productId = product.getProductId();
+        this.brandName = product.getSeller().getName();
+        this.name = product.getName();
+        this.regularPrice = product.getRegularPrice();
+        this.salePrice = product.getSalePrice();
+        this.discountRate = (int) Math.floor((double) (regularPrice - salePrice) / regularPrice * 100);
+        this.stock = product.getStock();
+        this.imageFile = ImageFileUtil.encode(product.getImageFileName());
+        this.openTime = product.getOpenTime();
+        this.closeTime = product.getCloseTime();
+        this.status = product.getStatus();
     }
 }

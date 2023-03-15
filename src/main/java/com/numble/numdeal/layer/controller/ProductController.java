@@ -74,8 +74,8 @@ public class ProductController {
     // 타임딜 리스트 페이지 (메인 페이지)
     @GetMapping("/timedeal")
     public String timedealListPage(@RequestParam(name = "status", defaultValue = ProductStatusEnum.ProductStatus.IN_PROCESS) String status,
-                               @RequestParam(name = "page", defaultValue = "1") int page,
-                               Model model)
+                                   @RequestParam(name = "page", defaultValue = "1") int page,
+                                   Model model)
     {
         try {
             model.addAttribute("timedealResponseDtoPage", productService.getTimedealList(status, page));
@@ -85,5 +85,22 @@ public class ProductController {
         }
 
         return "timedeal";
+    }
+
+    // 타임딜 상세 페이지
+    @GetMapping("/timedeal/{id}")
+    public String timedealDetailPage(@SessionAttribute(name = Constants.MEMBER_INFO, required = false) SignInResponseDto memberInfo,
+                                     @PathVariable("id") Long id,
+                                     Model model)
+    {
+        try {
+            model.addAttribute("timedealResponseDto", productService.getTimedealDetail(id));
+        } catch (IOException e) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.BAD_REQUEST, e.getMessage()));
+        }
+
+        return "timedeal-detail";
     }
 }
