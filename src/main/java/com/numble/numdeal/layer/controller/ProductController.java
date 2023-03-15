@@ -1,6 +1,7 @@
 package com.numble.numdeal.layer.controller;
 
 import com.numble.numdeal.layer.Constants;
+import com.numble.numdeal.layer.domain.ProductStatusEnum;
 import com.numble.numdeal.layer.dto.response.ResultResponseDto;
 import com.numble.numdeal.layer.dto.response.SignInResponseDto;
 import com.numble.numdeal.layer.form.AddTimedealRequestForm;
@@ -10,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -71,5 +69,21 @@ public class ProductController {
         }
 
         return "add-timedeal";
+    }
+
+    // 타임딜 리스트 페이지 (메인 페이지)
+    @GetMapping("/timedeal")
+    public String timedealListPage(@RequestParam(name = "status", defaultValue = ProductStatusEnum.ProductStatus.IN_PROCESS) String status,
+                               @RequestParam(name = "page", defaultValue = "1") int page,
+                               Model model)
+    {
+        try {
+            model.addAttribute("timedealResponseDtoPage", productService.getTimedealList(status, page));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("timedealResponseDtoPage", productService.getEmptyPage());
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.BAD_REQUEST, e.getMessage()));
+        }
+
+        return "timedeal";
     }
 }

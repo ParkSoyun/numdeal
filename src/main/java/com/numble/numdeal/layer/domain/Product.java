@@ -39,10 +39,10 @@ public class Product {
     private String imageFileName;
 
     @Column(nullable = false)
-    private LocalDateTime openDate;
+    private LocalDateTime openTime;
 
     @Column(nullable = false)
-    private LocalDateTime closeDate;
+    private LocalDateTime closeTime;
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
