@@ -1,0 +1,141 @@
+.list-header {
+    margin: 20px auto 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.list-filter {
+    margin-right: 30px;
+}
+
+.list-body {
+    padding: 0 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.no-data {
+    font-size: 15px;
+    margin: 50px auto;
+}
+
+.timedeal-card {
+    width: 150px;
+    height: 250px;
+    margin: 15px 0 15px;
+    cursor: pointer;
+}
+.card-header {
+    padding: 0;
+}
+
+.card-body {
+    padding: 8px 8px 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-img {
+    width: 148.4px;
+    height: 148.4px;
+}
+
+.time-stock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time {
+    display: flex;
+    align-items: center;
+    margin: auto 0;
+}
+
+.time-red {
+    color: red;
+}
+
+.bi::before {
+    vertical-align: middle!important;
+}
+
+.bi-red {
+    color: red;
+}
+
+.time-text {
+    font-size: 10px;
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 2px;
+    margin: 0;
+}
+
+.stock {
+    display: flex;
+    align-items: center;
+}
+
+.stock-text-red {
+    margin: auto 0;
+    font-size: 8px;
+    color: red;
+}
+
+.stock-text-black {
+    margin: auto 0;
+    font-size: 8px;
+    color: black;
+}
+
+.product-name {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-footer {
+    padding: 4px 8px 8px;
+    background-color: white;
+    border-top: none;
+}
+
+.price {
+    vertical-align: bottom;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.discount-rate {
+    margin-bottom: 0;
+    margin-right: 5px;
+    color: blue;
+}
+
+.regular-price {
+    font-size: 8px;
+    text-decoration: line-through dimgrey;
+    color: dimgrey;
+    text-align: right;
+    margin: 0;
+}
+
+.sale-price {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    margin: 0;
+}

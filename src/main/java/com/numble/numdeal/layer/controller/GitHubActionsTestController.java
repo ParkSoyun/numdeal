@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GitHubActionsTestController {
-    @GetMapping("/")
+    @GetMapping("/github-actions-test")
     public String test(){
         return "GitHub Actions Test";
     }

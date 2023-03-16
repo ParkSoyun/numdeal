@@ -1,12 +1,14 @@
 package com.numble.numdeal.layer.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +27,7 @@ public class Seller {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 13, nullable = false)
     private String phoneNumber;
 
     @Column(nullable = false)

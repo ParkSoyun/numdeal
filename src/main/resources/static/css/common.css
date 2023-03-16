@@ -1,0 +1,22 @@
+* {
+    font-family: 'TheJamsil2Light', sans-serif;
+    font-size: 13px;
+}
+
+@font-face {
+    font-family: 'TheJamsil2Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil2Light.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
+.body {
+    background-color: #212121;
+}
+
+.background-body {
+    margin: 0 auto 0;
+    width: 390px;
+    min-height: 100vh;
+    background-color: white;
+}

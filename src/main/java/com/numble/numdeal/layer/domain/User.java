@@ -1,6 +1,7 @@
 package com.numble.numdeal.layer.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +34,7 @@ public class User {
     @Column(length = 1, nullable = false)
     private Character gender;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 13, nullable = false)
     private String phoneNumber;
 
     @Column(nullable = false)

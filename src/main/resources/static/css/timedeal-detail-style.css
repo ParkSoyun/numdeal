@@ -1,0 +1,124 @@
+.detail-body {
+    padding: 20px 0;
+}
+
+.product-body {
+    padding: 0 45px;
+}
+
+.time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    height: 60px;
+    background-color: black;
+}
+
+.time-text {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 5px;
+    margin: 0;
+    font-size: 20px;
+    color: white;
+}
+
+.time-text-red {
+    color: red;
+}
+
+.product-img {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.product-text {
+    margin: 20px auto;
+}
+
+.brand-stock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.brand-name {
+    font-size: 15px;
+    color: dimgrey;
+    margin: 0;
+}
+
+.stock {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.stock-text-red {
+    margin: auto 0;
+    font-size: 15px;
+    color: red;
+}
+
+.stock-text-black {
+    margin: auto 0;
+    font-size: 15px;
+    color: black;
+}
+
+.product-name {
+    font-size: 23px;
+    font-weight: bold;
+    margin: 0 0 20px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price {
+    vertical-align: bottom;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.discount-rate {
+    margin-bottom: 0;
+    margin-right: 5px;
+    color: blue;
+    font-size: 20px;
+}
+
+.regular-price {
+    text-decoration: line-through dimgrey;
+    color: dimgrey;
+    text-align: right;
+    margin: 0;
+    font-size: 15px;
+}
+
+.sale-price {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+    margin: 0;
+}
+
+hr {
+    width: 300px;
+    margin: 20px auto;
+}
+
+.order-button {
+    width: 300px;
+}
+
+.edit-delete-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-delete-button {
+    width: 140px;
+}

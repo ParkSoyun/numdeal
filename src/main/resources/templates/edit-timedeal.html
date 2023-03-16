@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/navbar-style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/add-timedeal-style.css}" rel="stylesheet" type="text/css">
+
+    <title>NUMDEAL</title>
+</head>
+
+<body class="body">
+    <div class="background-body">
+        <div class="wrap">
+            <div class="nav-div" th:if="${session.memberInfo == null}">
+                <nav class="main-navbar-before">
+                    <a class="logo-before" th:href="@{/timedeal}">
+                        <img class="logo-before" th:src="@{/images/logo_white.png}" alt="NUMDEAL LOGO">
+                    </a>
+                </nav>
+
+                <div class="container-fluid navbar-collapse sub-navbar-before">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/signup/user}">회원가입</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/signin}">로그인</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nav-div" th:if="${session.memberInfo != null}">
+                <nav class="main-navbar-after">
+                    <a class="logo-after" th:href="@{/timedeal}">
+                        <img class="logo-after" th:src="@{/images/logo_white.png}" alt="NUMDEAL LOGO">
+                    </a>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-dark btn-sm dropdown-toggle user-button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                            <img class="user-icon" th:src="@{/images/user-icon.png}" alt="user icon">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'U')}">
+                            <li><a class="dropdown-item" href="#">구매한 상품 목록</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        </ul>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'S')}">
+                            <li><a class="dropdown-item" href="#">새 타임딜 등록</a></li>
+                            <li><a class="dropdown-item" href="#">등록한 타임딜 목록</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="container-fluid navbar-collapse sub-navbar-after">
+                    <p class="welcome-text">
+                        <small th:text="${session.memberInfo.name}"></small>
+                        <small>님 환영합니다.</small>
+                    </p>
+                </div>
+            </div>
+
+            <div class="title">
+                <h2 class="title-text">타임딜 정보 수정</h2>
+            </div>
+
+            <div class="form-body">
+                <form th:action="@{/timedeal/edit/{productId}(productId=${editTimedealRequestForm.productId})}" th:method="PUT" enctype="multipart/form-data" th:object="${editTimedealRequestForm}">
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="name">상품명</label>
+                        <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="regularPrice">상품 정상가 (원)</label>
+                        <input type="number" class="form-control" id="regularPrice" name="regularPrice" th:field="*{regularPrice}" min="0" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('regularPrice')}" th:errors="*{regularPrice}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="salePrice">상품 판매가 (원)</label>
+                        <input type="number" class="form-control" id="salePrice" name="salePrice" th:field="*{salePrice}" min="0" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('salePrice')}" th:errors="*{salePrice}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="stock">재고량 (개)</label>
+                        <input type="number" class="form-control" id="stock" name="stock" th:field="*{stock}" min="0" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="imageFile">상품 이미지</label>
+                        <input type="text" class="form-control" id="imageFile" name="imageFile" th:field="*{imageFileName}" disabled placeholder="">
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="openDateTime">타임딜 시작 시간</label>
+                        <input type="datetime-local" class="form-control" id="openDateTime" name="openDateTime" th:field="*{openDateTime}" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('openDateTime')}" th:errors="*{openDateTime}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <div class="mb-3 input-box">
+                        <label class="form-label" for="closeDateTime">타임딜 종료 시간</label>
+                        <input type="datetime-local" class="form-control" id="closeDateTime" name="closeDateTime" th:field="*{closeDateTime}" placeholder="">
+
+                        <p th:if="${#fields.hasErrors('closeDateTime')}" th:errors="*{closeDateTime}" class="result-fail">Incorrect data</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark add-button">등록</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let resultObject = [[${result}]];
+
+            if(resultObject != null) {
+                alert(resultObject.message);
+
+                if(resultObject.status == "OK") {
+                    let productId = new URL(window.location.href).pathname.split('/')[3];
+
+                    location.href = "/timedeal/" + productId;
+                }
+
+                if(resultObject.status == "UNAUTHORIZED" || resultObject.status == "FORBIDDEN" || resultObject.status == "BAD_REQUEST") {
+                    location.href = document.referrer;
+                }
+            }
+        })
+
+        let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+
+        document.getElementById('openDateTime').value = date;
+        document.getElementById('openDateTime').setAttribute("min", date);
+
+        document.getElementById('closeDateTime').setAttribute("min", date);
+
+        $(document.getElementById('openDateTime')).change(function () {
+            let minDate = document.getElementById('openDateTime').value;
+
+            document.getElementById('closeDateTime').setAttribute("min", minDate);
+        })
+    </script>
+
+</body>
+</html>
