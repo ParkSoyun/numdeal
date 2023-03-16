@@ -20,7 +20,9 @@
     <body class="body">
         <div class="background-body">
             <div class="wrap">
-                <img class="logo" th:src="@{/images/logo_black.png}" alt="NUMDEAL LOGO">
+                <a th:href="@{/timedeal}">
+                    <img class="logo" th:src="@{/images/logo_black.png}" alt="NUMDEAL LOGO">
+                </a>
 
                 <form th:action="@{/signin}" method="POST" th:object="${signInRequestForm}">
                     <div class="btn-group type-group" id="authority" role="group" th:field="*{authority}">
