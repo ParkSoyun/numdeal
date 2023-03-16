@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignInResponseDto {
-    private String id;
+    private Long id;
+    private String email;
     private String name;
     private String authority;
 }

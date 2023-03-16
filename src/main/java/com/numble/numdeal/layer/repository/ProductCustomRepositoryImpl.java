@@ -27,6 +27,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
         JPQLQuery<TimedealResponseDto> query = jpaQueryFactory.select(Projections.constructor(
                 TimedealResponseDto.class,
                     product.productId,
+                    product.seller.sellerId,
                     product.seller.name.as("brandName"),
                     product.name,
                     product.regularPrice,
