@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/navbar-style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/buyer-list-style.css}" rel="stylesheet" type="text/css">
+
+    <title>NUMDEAL</title>
+</head>
+
+<body class="body">
+<div class="background-body">
+    <div class="wrap">
+        <div class="nav-div" th:if="${session.memberInfo == null}">
+            <nav class="main-navbar-before">
+                <a class="logo-before" th:href="@{/timedeal}">
+                    <img class="logo-before" th:src="@{/images/logo_white.png}" alt="NUMDEAL LOGO">
+                </a>
+            </nav>
+
+            <div class="container-fluid navbar-collapse sub-navbar-before">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/signup/user}">회원가입</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/signin}">로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-div" th:if="${session.memberInfo != null}">
+            <nav class="main-navbar-after">
+                <a class="logo-after" th:href="@{/timedeal}">
+                    <img class="logo-after" th:src="@{/images/logo_white.png}" alt="NUMDEAL LOGO">
+                </a>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle user-button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <img class="user-icon" th:src="@{/images/user-icon.png}" alt="user icon">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'U')}">
+                        <li><a class="dropdown-item" href="#">구매한 상품 목록</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                    </ul>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'S')}">
+                        <li><a class="dropdown-item" href="#">새 타임딜 등록</a></li>
+                        <li><a class="dropdown-item" href="#">등록한 타임딜 목록</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid navbar-collapse sub-navbar-after">
+                <p class="welcome-text">
+                    <small th:text="${session.memberInfo.name}"></small>
+                    <small>님 환영합니다.</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="title">
+            <h2 class="title-text">상품 구매자 리스트</h2>
+        </div>
+
+        <div th:if="${buyerResponseDtoList} == null or ${buyerResponseDtoList.size} == 0" class="list-body">
+            <p class="no-data">구매자가 없습니다.</p>
+        </div>
+
+        <div th:unless="${buyerResponseDtoList.size} == 0" class="list-body">
+            <table class="table" th:unless="${buyerResponseDtoList} == null">
+                <thead>
+                <tr class="table-dark buyer-list">
+                    <th scope="col">주문일자</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">이름</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="buyerResponseDto : ${buyerResponseDtoList}">
+                    <th class="order-date" scope="row">[[${buyerResponseDto.orderDate}]]</th>
+                    <td class="id-name">[[${buyerResponseDto.email}]]</td>
+                    <td class="id-name">[[${buyerResponseDto.name}]]</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
