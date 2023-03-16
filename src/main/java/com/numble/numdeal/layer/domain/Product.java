@@ -36,18 +36,14 @@ public class Product {
     @Column(nullable = false)
     private int stock;
 
-    @Column(length = 50, nullable = false)
-    private String imageFileName;
+    @Column(length = 150, nullable = false)
+    private String imageFile;
 
     @Column(nullable = false)
     private LocalDateTime openTime;
 
     @Column(nullable = false)
     private LocalDateTime closeTime;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
-    private ProductStatusEnum status;
 
     public void reduceStock() {
         this.stock--;

@@ -1,5 +1,7 @@
 package com.numble.numdeal.layer.service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.numble.numdeal.layer.Constants;
 import com.numble.numdeal.layer.domain.Product;
 import com.numble.numdeal.layer.domain.ProductStatusEnum;
@@ -33,8 +35,10 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final SellerRepository sellerRepository;
 
-    @Value("${numdeal.timedeal.image.src}")
-    private String fileDirectory;
+    private final AmazonS3Client amazonS3Client;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
     private static final int PAGEABLE_SIZE = 10;
 
@@ -44,11 +48,11 @@ public class ProductService {
             throw new IllegalArgumentException("종료시간이 오픈시간보다 빠를 수 없습니다.");
         }
 
-        String imageFileName = saveImage(addTimedealRequestForm.getImageFile());
+        String imageFile = saveImage(addTimedealRequestForm.getImageFile());
 
         Seller seller = getSeller(memberInfo);
 
-        productRepository.save(addTimedealRequestForm.toEntity(seller, imageFileName, getStatus(addTimedealRequestForm.getOpenDateTime())));
+        productRepository.save(addTimedealRequestForm.toEntity(seller, imageFile));
 
         return new ResultResponseDto(HttpStatus.OK, "새 타임딜 등록이 완료되었습니다.");
     }
@@ -67,27 +71,24 @@ public class ProductService {
             throw new IllegalArgumentException("첨부한 이미지파일을 다시 확인해주세요.");
         }
 
-        String originName = imageFile.getOriginalFilename();
-        String savedName = makeSavedName(originName);
-        String savedPath = fileDirectory + savedName;
+        String savedName = makeSavedName();
+
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(imageFile.getContentType());
+        metadata.setContentLength(imageFile.getSize());
 
         try {
-            imageFile.transferTo(new File(savedPath));
+            amazonS3Client.putObject(bucket, savedName, imageFile.getInputStream(), metadata);
         } catch (IOException e) {
             throw new IOException("이미지파일 저장에 실패하였습니다.");
         }
 
-        return savedName;
+        return amazonS3Client.getUrl(bucket, savedName).toString();
     }
 
     // 이미지 저장명 생성
-    private String makeSavedName(String originName) {
-        StringBuilder savedName = new StringBuilder();
-
-        String uuid = UUID.randomUUID().toString();
-        String extendsion = originName.substring(originName.lastIndexOf("."));
-
-        return savedName.append(uuid).append(extendsion).toString();
+    private String makeSavedName() {
+        return UUID.randomUUID().toString();
     }
 
     // seller 가져오기
@@ -100,16 +101,16 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
     }
 
-    // 타임딜 상태 가져오기
-    private ProductStatusEnum getStatus(String strOpenDateTime) {
-        LocalDateTime openDateTime = LocalDateTime.parse(strOpenDateTime);
-
-        if(openDateTime.isAfter(LocalDateTime.now())) {
-            return ProductStatusEnum.TO_DO;
-        }
-
-        return ProductStatusEnum.IN_PROCESS;
-    }
+//    // 타임딜 상태 가져오기
+//    private ProductStatusEnum getStatus(String strOpenDateTime) {
+//        LocalDateTime openDateTime = LocalDateTime.parse(strOpenDateTime);
+//
+//        if(openDateTime.isAfter(LocalDateTime.now())) {
+//            return ProductStatusEnum.TO_DO;
+//        }
+//
+//        return ProductStatusEnum.IN_PROCESS;
+//    }
 
     // 타임딜 리스트 가져오기
     public Page<TimedealResponseDto> getTimedealList(String status, int page) {

@@ -7,6 +7,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -35,10 +37,9 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                     product.regularPrice,
                     product.salePrice,
                     product.stock,
-                    product.imageFileName,
+                    product.imageFile,
                     product.openTime,
-                    product.closeTime,
-                    product.status
+                    product.closeTime
                 ))
                 .from(product)
                 .where(statusEq(status))
@@ -53,14 +54,14 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 
     private BooleanExpression statusEq(String status) {
         if(status.equals(ProductStatusEnum.TO_DO.toString())) {
-            return product.status.eq(ProductStatusEnum.TO_DO);
+            return product.openTime.gt(LocalDateTime.now());
         }
 
         if(status.equals(ProductStatusEnum.CLOSED.toString())) {
-            return product.status.eq(ProductStatusEnum.CLOSED);
+            return product.closeTime.lt(LocalDateTime.now());
         }
 
-        return product.status.eq(ProductStatusEnum.IN_PROCESS);
+        return Expressions.allOf(product.openTime.loe(LocalDateTime.now()), product.closeTime.gt(LocalDateTime.now()));
     }
 
     private OrderSpecifier<?> getSortCondition(String filter) {
@@ -90,10 +91,9 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                 product.regularPrice,
                 product.salePrice,
                 product.stock,
-                product.imageFileName,
+                product.imageFile,
                 product.openTime,
-                product.closeTime,
-                product.status
+                product.closeTime
                 ))
                 .from(product)
                 .where(product.seller.sellerId.eq(sellerId))
