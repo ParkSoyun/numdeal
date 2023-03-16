@@ -65,7 +65,7 @@ public class OrderService {
 
     // Product 가져오기
     private Product getProduct(Long productId) {
-        return productRepository.findById(productId)
+        return productRepository.findByProductId(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
     }
 
