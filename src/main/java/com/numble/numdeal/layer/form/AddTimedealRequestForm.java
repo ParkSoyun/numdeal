@@ -49,7 +49,7 @@ public class AddTimedealRequestForm {
                 .regularPrice(regularPrice)
                 .salePrice(salePrice)
                 .stock(stock)
-                .imageFileName(imageFileName)
+                .imageFile(imageFileName)
                 .openTime(LocalDateTime.parse(openDateTime))
                 .closeTime(LocalDateTime.parse(closeDateTime))
                 .status(status)

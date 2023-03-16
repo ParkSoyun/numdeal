@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="product-body">
-                        <img th:src="'data:image/*;base64,' + ${timedealResponseDto.imageFile}" class="product-img" alt="product image">
+                        <img th:src="${timedealResponseDto.imageFile}" class="product-img" alt="product image">
 
                         <div class="product-text">
                             <div class="brand-stock">

@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <img th:src="'data:image/*;base64,' + ${timedealResponseDto.imageFile}" class="img-fluid rounded-start product-img" alt="상품 이미지">
+                    <img th:src="${timedealResponseDto.imageFile}" class="img-fluid rounded-start product-img" alt="상품 이미지">
                     <div class="product-info">
                         <p class="card-title product-name">[[${timedealResponseDto.name}]]</p>
 

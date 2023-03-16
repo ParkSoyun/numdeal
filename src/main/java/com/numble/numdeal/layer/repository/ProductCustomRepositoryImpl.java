@@ -35,7 +35,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                     product.regularPrice,
                     product.salePrice,
                     product.stock,
-                    product.imageFileName,
+                    product.imageFile,
                     product.openTime,
                     product.closeTime,
                     product.status
@@ -90,7 +90,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                 product.regularPrice,
                 product.salePrice,
                 product.stock,
-                product.imageFileName,
+                product.imageFile,
                 product.openTime,
                 product.closeTime,
                 product.status
