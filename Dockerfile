@@ -2,7 +2,9 @@
 FROM openjdk:11-jdk
 
 # 한국시간으로 설정
-RUN echo "Asia/Seoul" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Seoul
+RUN apt-get install -y tzdata
 
 # build가 되는 시점에 JAR_FILE이라는 변수명에 build/libs/*.jar 표현식 선언
 # bild/libs 경로는 gradle로 빌드했을 때 jar 파일이 생성되는 경로
