@@ -45,10 +45,6 @@ public class Product {
     @Column(nullable = false)
     private LocalDateTime closeTime;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
-    private ProductStatusEnum status;
-
     public void reduceStock() {
         this.stock--;
     }

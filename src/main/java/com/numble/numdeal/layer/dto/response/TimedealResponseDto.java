@@ -23,9 +23,8 @@ public class TimedealResponseDto {
     private String imageFile;
     private String openTime;
     private String closeTime;
-    private ProductStatusEnum status;
 
-    public TimedealResponseDto(Long productId, Long sellerId, String brandName, String name, int regularPrice, int salePrice, int stock, String imageFile, LocalDateTime openTime, LocalDateTime closeTime, ProductStatusEnum status) throws IOException {
+    public TimedealResponseDto(Long productId, Long sellerId, String brandName, String name, int regularPrice, int salePrice, int stock, String imageFile, LocalDateTime openTime, LocalDateTime closeTime) {
         this.productId = productId;
         this.sellerId = sellerId;
         this.brandName = brandName;
@@ -37,7 +36,6 @@ public class TimedealResponseDto {
         this.imageFile = imageFile;
         this.openTime = openTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.closeTime = closeTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.status = status;
     }
 
     public TimedealResponseDto(Product product) {
@@ -52,6 +50,5 @@ public class TimedealResponseDto {
         this.imageFile = product.getImageFile();
         this.openTime = String.valueOf(product.getOpenTime());
         this.closeTime = String.valueOf(product.getCloseTime());
-        this.status = product.getStatus();
     }
 }

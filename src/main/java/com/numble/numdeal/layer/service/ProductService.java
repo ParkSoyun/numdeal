@@ -48,11 +48,11 @@ public class ProductService {
             throw new IllegalArgumentException("종료시간이 오픈시간보다 빠를 수 없습니다.");
         }
 
-        String imageFileName = saveImage(addTimedealRequestForm.getImageFile());
+        String imageFile = saveImage(addTimedealRequestForm.getImageFile());
 
         Seller seller = getSeller(memberInfo);
 
-        productRepository.save(addTimedealRequestForm.toEntity(seller, imageFileName, getStatus(addTimedealRequestForm.getOpenDateTime())));
+        productRepository.save(addTimedealRequestForm.toEntity(seller, imageFile));
 
         return new ResultResponseDto(HttpStatus.OK, "새 타임딜 등록이 완료되었습니다.");
     }
@@ -101,16 +101,16 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
     }
 
-    // 타임딜 상태 가져오기
-    private ProductStatusEnum getStatus(String strOpenDateTime) {
-        LocalDateTime openDateTime = LocalDateTime.parse(strOpenDateTime);
-
-        if(openDateTime.isAfter(LocalDateTime.now())) {
-            return ProductStatusEnum.TO_DO;
-        }
-
-        return ProductStatusEnum.IN_PROCESS;
-    }
+//    // 타임딜 상태 가져오기
+//    private ProductStatusEnum getStatus(String strOpenDateTime) {
+//        LocalDateTime openDateTime = LocalDateTime.parse(strOpenDateTime);
+//
+//        if(openDateTime.isAfter(LocalDateTime.now())) {
+//            return ProductStatusEnum.TO_DO;
+//        }
+//
+//        return ProductStatusEnum.IN_PROCESS;
+//    }
 
     // 타임딜 리스트 가져오기
     public Page<TimedealResponseDto> getTimedealList(String status, int page) {

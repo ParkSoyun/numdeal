@@ -42,7 +42,7 @@ public class AddTimedealRequestForm {
     @DateTimeFormat(pattern = "yyyyMMdd HH:mm:ss")
     private String closeDateTime;
 
-    public Product toEntity(Seller seller, String imageFileName, ProductStatusEnum status) {
+    public Product toEntity(Seller seller, String imageFileName) {
         return Product.builder()
                 .seller(seller)
                 .name(name)
@@ -52,7 +52,6 @@ public class AddTimedealRequestForm {
                 .imageFile(imageFileName)
                 .openTime(LocalDateTime.parse(openDateTime))
                 .closeTime(LocalDateTime.parse(closeDateTime))
-                .status(status)
                 .build();
     }
 }
