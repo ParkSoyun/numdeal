@@ -1,0 +1,103 @@
+.title {
+    text-align: center;
+    margin: 30px auto 20px;
+}
+
+.title-text {
+    font-weight: bold;
+}
+
+.list-body {
+    padding: 0 20px 20px;
+}
+
+.no-data {
+    font-size: 15px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.timedeal-card {
+    width: 350px;
+    margin: 15px 0 15px;
+    cursor: pointer;
+}
+
+.card-header {
+    height: 40px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time {
+    display: flex;
+    align-items: center;
+    margin: auto 0;
+    height: 20px;
+}
+
+.time-text {
+    font-size: 10px;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.card-body {
+    height: 100px;
+    display: flex;
+    padding: 0;
+}
+
+.product-img {
+    height: 100px;
+}
+
+.product-info {
+    padding: 10px;
+    width: 100%;
+}
+
+.product-name {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price {
+    vertical-align: bottom;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.discount-rate {
+    margin-bottom: 0;
+    margin-right: 5px;
+    color: blue;
+}
+
+.regular-price {
+    font-size: 8px;
+    text-decoration: line-through dimgrey;
+    color: dimgrey;
+    text-align: right;
+    margin: 0;
+}
+
+.sale-price {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: right;
+    margin: 0;
+}
+
+.order-list-button {
+    width: 100%;
+}

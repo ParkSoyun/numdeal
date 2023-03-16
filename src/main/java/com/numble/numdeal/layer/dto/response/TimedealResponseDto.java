@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor
@@ -21,8 +22,8 @@ public class TimedealResponseDto {
     private int discountRate;
     private int stock;
     private String imageFile;
-    private LocalDateTime openTime;
-    private LocalDateTime closeTime;
+    private String openTime;
+    private String closeTime;
     private ProductStatusEnum status;
 
     public TimedealResponseDto(Long productId, Long sellerId, String brandName, String name, int regularPrice, int salePrice, int stock, String imageFileName, LocalDateTime openTime, LocalDateTime closeTime, ProductStatusEnum status) throws IOException {
@@ -35,8 +36,8 @@ public class TimedealResponseDto {
         this.discountRate = (int) Math.floor((double) (regularPrice - salePrice) / regularPrice * 100);
         this.stock = stock;
         this.imageFile = ImageFileUtil.encode(imageFileName);
-        this.openTime = openTime;
-        this.closeTime = closeTime;
+        this.openTime = openTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.closeTime = closeTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.status = status;
     }
 
@@ -50,8 +51,8 @@ public class TimedealResponseDto {
         this.discountRate = (int) Math.floor((double) (regularPrice - salePrice) / regularPrice * 100);
         this.stock = product.getStock();
         this.imageFile = ImageFileUtil.encode(product.getImageFileName());
-        this.openTime = product.getOpenTime();
-        this.closeTime = product.getCloseTime();
+        this.openTime = String.valueOf(product.getOpenTime());
+        this.closeTime = String.valueOf(product.getCloseTime());
         this.status = product.getStatus();
     }
 }
