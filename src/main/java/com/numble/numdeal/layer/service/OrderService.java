@@ -28,6 +28,26 @@ public class OrderService {
     public ResultResponseDto order(Long productId, SignInResponseDto memberInfo) {
         User user = getUser(memberInfo);
 
+        Product product = reduceStockAndReturnProduct(productId);
+
+        createOrder(user, product);
+
+        return new ResultResponseDto(HttpStatus.OK, "주문이 완료되었습니다.");
+    }
+
+    // User 가져오기
+    private User getUser(SignInResponseDto memberInfo) {
+        if (!memberInfo.getAuthority().equals(Constants.AUTHORITY_USER)) {
+            throw new IllegalArgumentException("잘못된 접근입니다.");
+        }
+
+        return userRepository.findById(memberInfo.getId())
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
+    }
+
+    // 재고량 감소시키기
+    @Transactional
+    public Product reduceStockAndReturnProduct(Long productId) {
         Product product = getProduct(productId);
 
         if(isSoldOut(product.getStock())) {
@@ -40,35 +60,32 @@ public class OrderService {
 
         product.reduceStock();
 
-        Order order = Order.builder()
-                            .user(user)
-                            .product(product)
-                            .build();
-
-        orderRepository.save(order);
-
-        return new ResultResponseDto(HttpStatus.OK, "주문이 완료되었습니다.");
+        return product;
     }
 
-    private User getUser(SignInResponseDto memberInfo) {
-        if (!memberInfo.getAuthority().equals(Constants.AUTHORITY_USER)) {
-            throw new IllegalArgumentException("잘못된 접근입니다.");
-        }
-
-        return userRepository.findById(memberInfo.getId())
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
-    }
-
+    // Product 가져오기
     private Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
     }
 
+    // 품절 상태인지 확인
     private boolean isSoldOut(int stock) {
         return stock == 0;
     }
 
+    // 종료된 타임딜인지 확인
     private boolean isClosed(LocalDateTime closeTime) {
         return closeTime.isBefore(LocalDateTime.now());
+    }
+
+    // Order 테이블에 주문 생성
+    private void createOrder(User user, Product product) {
+        Order order = Order.builder()
+                .user(user)
+                .product(product)
+                .build();
+
+        orderRepository.save(order);
     }
 }
