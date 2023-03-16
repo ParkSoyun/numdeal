@@ -22,7 +22,9 @@
     <body class="body">
         <div class="background-body">
             <div class="wrap">
-                <img class="logo" th:src="@{/images/logo_black.png}" alt="NUMDEAL LOGO">
+                <a class="logo-before" th:href="@{/timedeal}">
+                    <img class="logo" th:src="@{/images/logo_black.png}" alt="NUMDEAL LOGO">
+                </a>
 
                 <div class="btn-group type-group" role="group">
                     <input type="radio" class="btn-check" name="btnradio" id="user" autocomplete="off" th:onclick="|location.href='@{/signup/user}'|" checked>
@@ -113,8 +115,8 @@
                 if(resultObject != null) {
                     alert(resultObject.message);
 
-                    if (resultObject.status = 200) {
-                        location.href = "/signin/user";
+                    if (resultObject.status == "OK") {
+                        location.href = "/signin";
                     }
                 }
             })

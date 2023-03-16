@@ -57,15 +57,15 @@
                                 <img class="user-icon" th:src="@{/images/user-icon.png}" alt="user icon">
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'U')}">
-                                <li><a class="dropdown-item" href="#">구매한 상품 목록</a></li>
+                                <li><a class="dropdown-item" th:href="@{/mypage/user}">구매한 상품 목록</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href='javascript:void(0);' th:onclick="signOut()">로그아웃</a></li>
                             </ul>
                             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'S')}">
-                                <li><a class="dropdown-item" href="#">새 타임딜 등록</a></li>
-                                <li><a class="dropdown-item" href="#">등록한 타임딜 목록</a></li>
+                                <li><a class="dropdown-item" th:href="@{/timedeal/new}">새 타임딜 등록</a></li>
+                                <li><a class="dropdown-item" th:href="@{/mypage/seller}">등록한 타임딜 목록</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                                <li><a class="dropdown-item" href='javascript:void(0);' th:onclick="signOut()">로그아웃</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div th:if="${timedealResponseDtoPage.totalElements} != 0" class="list-body">
-                    <div class="card timedeal-card" name="timedeal-card" th:each="timedealResponseDto : ${timedealResponseDtoPage}" onclick="location.href='#'" th:value="${timedealResponseDto}">
+                    <div class="card timedeal-card" name="timedeal-card" th:each="timedealResponseDto : ${timedealResponseDtoPage}" th:onclick="|location.href='@{/timedeal/{productId}(productId=${timedealResponseDto.productId})}'|" th:value="${timedealResponseDto}">
                         <img th:src="${timedealResponseDto.imageFile}" class="card-img-top product-img" alt="product image">
                         <div class="card-body">
                             <div class="time-stock">

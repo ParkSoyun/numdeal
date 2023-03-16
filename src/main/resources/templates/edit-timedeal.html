@@ -52,15 +52,15 @@
                             <img class="user-icon" th:src="@{/images/user-icon.png}" alt="user icon">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'U')}">
-                            <li><a class="dropdown-item" href="#">구매한 상품 목록</a></li>
+                            <li><a class="dropdown-item" th:href="@{/mypage/user}">구매한 상품 목록</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                            <li><a class="dropdown-item" href='javascript:void(0);' th:onclick="signOut()">로그아웃</a></li>
                         </ul>
                         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg-end" th:if="${#strings.equals(session.memberInfo.authority, 'S')}">
-                            <li><a class="dropdown-item" href="#">새 타임딜 등록</a></li>
-                            <li><a class="dropdown-item" href="#">등록한 타임딜 목록</a></li>
+                            <li><a class="dropdown-item" th:href="@{/timedeal/new}">새 타임딜 등록</a></li>
+                            <li><a class="dropdown-item" th:href="@{/mypage/seller}">등록한 타임딜 목록</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                            <li><a class="dropdown-item" href='javascript:void(0);' th:onclick="signOut()">로그아웃</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -109,7 +109,7 @@
 
                     <div class="mb-3 input-box">
                         <label class="form-label" for="imageFile">상품 이미지</label>
-                        <input type="text" class="form-control" id="imageFile" name="imageFile" th:field="*{imageFileName}" disabled placeholder="">
+                        <input type="text" class="form-control" id="imageFile" name="imageFile" th:field="*{imageFile}" disabled placeholder="">
                     </div>
 
                     <div class="mb-3 input-box">
