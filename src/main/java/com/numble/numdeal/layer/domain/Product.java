@@ -1,5 +1,6 @@
 package com.numble.numdeal.layer.domain;
 
+import com.numble.numdeal.layer.form.EditTimedealRequestForm;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,5 +51,14 @@ public class Product {
 
     public void reduceStock() {
         this.stock--;
+    }
+
+    public void edit(EditTimedealRequestForm editTimedealRequestForm) {
+        this.name = editTimedealRequestForm.getName();
+        this.regularPrice = editTimedealRequestForm.getRegularPrice();
+        this.salePrice = editTimedealRequestForm.getSalePrice();
+        this.stock = editTimedealRequestForm.getStock();
+        this.openTime = LocalDateTime.parse(editTimedealRequestForm.getOpenDateTime());
+        this.closeTime = LocalDateTime.parse(editTimedealRequestForm.getCloseDateTime());
     }
 }

@@ -5,6 +5,7 @@ import com.numble.numdeal.layer.domain.ProductStatusEnum;
 import com.numble.numdeal.layer.dto.response.ResultResponseDto;
 import com.numble.numdeal.layer.dto.response.SignInResponseDto;
 import com.numble.numdeal.layer.form.AddTimedealRequestForm;
+import com.numble.numdeal.layer.form.EditTimedealRequestForm;
 import com.numble.numdeal.layer.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -102,5 +103,64 @@ public class ProductController {
         }
 
         return "timedeal-detail";
+    }
+
+    // 타임딜 정보 수정 페이지
+    @GetMapping("/timedeal/edit/{productId}")
+    public String editTimedealPage(@SessionAttribute(name = Constants.MEMBER_INFO, required = false) SignInResponseDto memberInfo,
+                                   @PathVariable("productId") Long productId,
+                                   Model model)
+    {
+        if(memberInfo == null) {
+            model.addAttribute("editTimedealRequestForm", productService.getEmptyEditForm());
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.UNAUTHORIZED, "잘못된 접근입니다."));
+
+            return "edit-timedeal";
+        }
+
+        if(memberInfo.getAuthority().equals("U")) {
+            model.addAttribute("editTimedealRequestForm", productService.getEmptyEditForm());
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.FORBIDDEN, "잘못된 접근입니다."));
+
+            return "edit-timedeal";
+        }
+
+        try {
+            model.addAttribute("editTimedealRequestForm", productService.getTimedealInfo(productId, memberInfo));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.BAD_REQUEST, e.getMessage()));
+        }
+
+        return "edit-timedeal";
+    }
+
+    // 타임딜 정보 수정
+    @PutMapping("/timedeal/edit/{productId}")
+    public String editTimedeal(@SessionAttribute(name = Constants.MEMBER_INFO, required = false) SignInResponseDto memberInfo,
+                               @PathVariable("productId") Long productId,
+                               @ModelAttribute("editTimedealRequestForm") @Valid EditTimedealRequestForm editTimedealRequestForm,
+                               Model model)
+    {
+        model.addAttribute("editTimedealRequestForm", productService.getEmptyEditForm());
+
+        if(memberInfo == null) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.UNAUTHORIZED, "잘못된 접근입니다."));
+
+            return "edit-timedeal";
+        }
+
+        if(memberInfo.getAuthority().equals("U")) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.FORBIDDEN, "잘못된 접근입니다."));
+
+            return "edit-timedeal";
+        }
+
+        try {
+            model.addAttribute("result", productService.editTimedeal(editTimedealRequestForm, memberInfo));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.BAD_REQUEST, e.getMessage()));
+        }
+
+        return "edit-timedeal";
     }
 }
