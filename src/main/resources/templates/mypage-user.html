@@ -82,7 +82,7 @@
         </div>
 
         <div th:unless="${orderHistoryResponseDtoList} == null" class="list-body">
-            <div class="card border-dark mb-3 timedeal-card" th:each="orderHistoryResponseDto : ${orderHistoryResponseDtoList}">
+            <div class="card border-dark mb-3 timedeal-card" th:each="orderHistoryResponseDto : ${orderHistoryResponseDtoList}" th:onclick="|location.href='@{/timedeal/{productId}(productId=${orderHistoryResponseDto.productId})}'|">
                 <div class="card-header">
                     <div class="time">
                         <span class="time-text">[[${orderHistoryResponseDto.orderDate}]]</span>

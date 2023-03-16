@@ -93,7 +93,7 @@
                 </div>
 
                 <div th:if="${timedealResponseDtoPage.totalElements} != 0" class="list-body">
-                    <div class="card timedeal-card" name="timedeal-card" th:each="timedealResponseDto : ${timedealResponseDtoPage}" onclick="location.href='#'" th:value="${timedealResponseDto}">
+                    <div class="card timedeal-card" name="timedeal-card" th:each="timedealResponseDto : ${timedealResponseDtoPage}" th:onclick="|location.href='@{/timedeal/{productId}(productId=${timedealResponseDto.productId})}'|" th:value="${timedealResponseDto}">
                         <img th:src="${timedealResponseDto.imageFile}" class="card-img-top product-img" alt="product image">
                         <div class="card-body">
                             <div class="time-stock">
