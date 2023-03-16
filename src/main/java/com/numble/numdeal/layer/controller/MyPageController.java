@@ -61,4 +61,26 @@ public class MyPageController {
 
         return "buyer-list";
     }
+
+    // 구매 내역 리스트 페이지
+    @GetMapping("/mypage/user")
+    public String orderHistoryListPage(@SessionAttribute(name = Constants.MEMBER_INFO, required = false) SignInResponseDto memberInfo,
+                                       Model model)
+    {
+        if(memberInfo == null) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.UNAUTHORIZED, "잘못된 접근입니다."));
+
+            return "mypage-user";
+        }
+
+        if(memberInfo.getAuthority().equals("S")) {
+            model.addAttribute("result", new ResultResponseDto(HttpStatus.FORBIDDEN, "잘못된 접근입니다."));
+
+            return "mypage-user";
+        }
+
+        model.addAttribute("orderHistoryResponseDtoList", myPageService.getOrderHistoryList(memberInfo));
+
+        return "mypage-user";
+    }
 }

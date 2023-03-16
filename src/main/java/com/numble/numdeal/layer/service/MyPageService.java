@@ -2,6 +2,7 @@ package com.numble.numdeal.layer.service;
 
 import com.numble.numdeal.layer.domain.Product;
 import com.numble.numdeal.layer.dto.response.BuyerResponseDto;
+import com.numble.numdeal.layer.dto.response.OrderHistoryResponseDto;
 import com.numble.numdeal.layer.dto.response.SignInResponseDto;
 import com.numble.numdeal.layer.dto.response.TimedealResponseDto;
 import com.numble.numdeal.layer.repository.OrderRepository;
@@ -42,5 +43,10 @@ public class MyPageService {
     // 요청자(로그인 되어있는 대상)가 해당 Timedeal을 등록한 사람이 맞는지 확인
     private boolean hasAuthority(Long sellerId, Long loginMemberId) {
         return sellerId.equals(loginMemberId);
+    }
+
+    // 주문 내역 가져오기
+    public List<OrderHistoryResponseDto> getOrderHistoryList(SignInResponseDto memberInfo) {
+        return orderRepository.findByUserId(memberInfo.getId());
     }
 }
