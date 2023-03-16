@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ProductCustomRepositoryImpl implements ProductCustomRepository {
@@ -75,5 +77,26 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
         }
 
         throw new IllegalArgumentException("잘못된 접근입니다.");
+    }
+
+    @Override
+    public List<TimedealResponseDto> findBySellerId(Long sellerId) {
+        return jpaQueryFactory.select(Projections.constructor(
+                TimedealResponseDto.class,
+                product.productId,
+                product.seller.sellerId,
+                product.seller.name.as("brandName"),
+                product.name,
+                product.regularPrice,
+                product.salePrice,
+                product.stock,
+                product.imageFileName,
+                product.openTime,
+                product.closeTime,
+                product.status
+                ))
+                .from(product)
+                .where(product.seller.sellerId.eq(sellerId))
+                .fetch();
     }
 }
