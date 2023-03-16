@@ -9,6 +9,7 @@ import com.numble.numdeal.layer.form.EditTimedealRequestForm;
 import com.numble.numdeal.layer.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -162,5 +163,13 @@ public class ProductController {
         }
 
         return "edit-timedeal";
+    }
+
+    // 타임딜 삭제
+    @DeleteMapping("/timedeal/{productId}")
+    public ResponseEntity<ResultResponseDto> deleteTimedeal(@SessionAttribute(name = Constants.MEMBER_INFO, required = false) SignInResponseDto memberInfo,
+                                                            @PathVariable("productId") Long productId)
+    {
+        return new ResponseEntity<>(productService.deleteTimedeal(productId, memberInfo), HttpStatus.OK);
     }
 }

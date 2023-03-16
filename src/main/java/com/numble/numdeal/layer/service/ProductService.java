@@ -192,4 +192,17 @@ public class ProductService {
 
         return new ResultResponseDto(HttpStatus.OK, "타임딜 정보 수정이 완료되었습니다.");
     }
+
+    // 타임딜 삭제
+    public ResultResponseDto deleteTimedeal(Long productId, SignInResponseDto memberInfo) {
+        Product product = getProduct(productId);
+
+        if(!hasAuthority(product.getSeller().getSellerId(), memberInfo.getId())) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
+
+        productRepository.deleteById(productId);
+
+        return new ResultResponseDto(HttpStatus.OK, "타임딜이 삭제되었습니다.");
+    }
 }
