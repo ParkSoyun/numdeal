@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <img th:src="'data:image/*;base64,' + ${orderHistoryResponseDto.imageFile}" class="img-fluid rounded-start product-img" alt="상품 이미지">
+                    <img th:src="${orderHistoryResponseDto.imageFile}" class="img-fluid rounded-start product-img" alt="상품 이미지">
                     <div class="product-info">
                         <div class="name">
                             <p class="card-text brand-name">[[${orderHistoryResponseDto.brandName}]]</p>

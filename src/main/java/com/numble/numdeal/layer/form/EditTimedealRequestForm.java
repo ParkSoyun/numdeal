@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -34,7 +33,7 @@ public class EditTimedealRequestForm {
     @PositiveOrZero
     private int stock;
 
-    private String imageFileName;
+    private String imageFile;
 
     @NotBlank(message = "타임딜 시작 날짜를 입력해주세요.")
     @DateTimeFormat(pattern = "yyyyMMdd HH:mm:ss")
@@ -50,7 +49,7 @@ public class EditTimedealRequestForm {
         this.regularPrice = product.getRegularPrice();
         this.salePrice = product.getSalePrice();
         this.stock = product.getStock();
-        this.imageFileName = product.getImageFileName();
+        this.imageFile = product.getImageFile();
         this.openDateTime = String.valueOf(product.getOpenTime());
         this.closeDateTime = String.valueOf(product.getCloseTime());
     }

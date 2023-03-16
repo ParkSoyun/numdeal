@@ -40,7 +40,7 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository{
                 order.product.seller.name.as("brandName"),
                 order.product.name,
                 order.product.salePrice,
-                order.product.imageFileName
+                order.product.imageFile
                 ))
                 .from(order)
                 .where(order.user.userId.eq(userId))
