@@ -113,7 +113,7 @@
                         </div>
 
                         <div th:if="(${session.memberInfo} != null) and (${#strings.equals(session.memberInfo.authority, 'U')})">
-                            <button type="button" th:if="${timedealResponseDto.stock} > 0" th:onclick="timedealDetail([[${timedealResponseDto.productId}]], [[${timedealResponseDto.stock}]], [[${timedealResponseDto.closeTime}]])" class="btn btn-dark order-button btn-lg">구매하기</button>
+                            <button type="button" th:if="${timedealResponseDto.stock} > 0" th:onclick="order([[${timedealResponseDto.productId}]], [[${timedealResponseDto.stock}]], [[${timedealResponseDto.openTime}]], [[${timedealResponseDto.closeTime}]])" class="btn btn-dark order-button btn-lg">구매하기</button>
                             <button type="button" th:unless="${timedealResponseDto.stock} > 0" class="btn btn-dark order-button btn-lg" disabled>구매하기</button>
                         </div>
 
