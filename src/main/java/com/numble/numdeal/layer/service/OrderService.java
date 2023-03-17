@@ -54,6 +54,10 @@ public class OrderService {
             throw new IllegalStateException("재고 수량이 부족하여 주문에 실패하였습니다.");
         }
 
+        if(isToDo(product.getOpenTime())) {
+            throw new IllegalStateException("오픈 예정 타임딜입니다.");
+        }
+
         if(isClosed(product.getCloseTime())) {
             throw new IllegalStateException("종료된 타임딜입니다.");
         }
@@ -72,6 +76,11 @@ public class OrderService {
     // 품절 상태인지 확인
     private boolean isSoldOut(int stock) {
         return stock == 0;
+    }
+
+    // 오픈 예정 타임딜인지 확인
+    private boolean isToDo(LocalDateTime openTime) {
+        return openTime.isAfter(LocalDateTime.now());
     }
 
     // 종료된 타임딜인지 확인
