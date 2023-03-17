@@ -22,6 +22,14 @@ public class OrderController {
     public ResponseEntity<ResultResponseDto> order(@SessionAttribute(name = Constants.MEMBER_INFO, required = false) SignInResponseDto memberInfo,
                                                    @PathVariable("productId") Long productId)
     {
-        return new ResponseEntity<>(orderService.order(productId, memberInfo), HttpStatus.OK);
+        ResultResponseDto resultResponseDto;
+
+        try {
+            resultResponseDto = orderService.order(productId, memberInfo);
+        } catch (IllegalStateException e) {
+            resultResponseDto = new ResultResponseDto(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        return new ResponseEntity<>(resultResponseDto, HttpStatus.OK);
     }
 }

@@ -1,16 +1,18 @@
-function timedealDetail(productId, stock, strCloseTime) {
+function order(productId, stock, strOpenTime, strCloseTime) {
+    let openTime = new Date(strOpenTime).getTime();
     let closeTime = new Date(strCloseTime).getTime();
     let now = new Date().getTime();
 
-    let gap = closeTime - now;
-    let gapToSecond = Math.floor(gap / 1000);
-
-    if(stock === 0) {
-        alert("품절된 상품입니다.");
+    if(openTime > now) {
+        alert("오픈 예정 타임딜입니다.");
 
         location.href = "/timedeal/" + productId;
-    } else if(gapToSecond <= 0) {
+    } else if(closeTime < now) {
         alert("종료된 타임딜입니다.");
+
+        location.href = "/timedeal/" + productId;
+    } else if(stock === 0) {
+        alert("품절된 상품입니다.");
 
         location.href = "/timedeal/" + productId;
     } else {
